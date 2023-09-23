@@ -6,10 +6,10 @@ export def main [svcName = "cilium-gateway-gateway": string, --namespace (-n) = 
 
 export def annotate [serviceName: string, namespace: string, ip: string, ipPool: string] {
   try {
-    createPoolString | kubectl delete -f -
+    createPoolString $ipPool | kubectl delete -f -
   }
   try {kubectl annotate svc $serviceName -n $namespace $'io.cilium/lb-ipam-ips=($ip)'}
-  createPoolString | kubectl apply -f -
+  createPoolString $ipPool | kubectl apply -f -
 }
 
 export def createPoolString [ipPool = "194.163.166.183/28": string] {
