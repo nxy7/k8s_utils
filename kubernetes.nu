@@ -52,7 +52,7 @@ export def load-kernel-modules [] {
 
 
 export def install-cilium [] {
-  cilium install --values ./cilium_values.yaml --version 1.15.0-pre.0
+  cilium install --values ./cilium_values.yaml --version 1.15.0-pre.0 --wait
 }
 
 export def install-openebs [] {
