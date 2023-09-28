@@ -3,43 +3,15 @@ kind: Gateway
 metadata:
   name: gateway
   namespace: default
-  annotations:
-    "cert-manager.io/cluster-issuer": "ca-issuer"
+  # issuer is not necesarry for HTTP traffic
+  # annotations:
+    # "cert-manager.io/cluster-issuer": "ca-issuer"
 spec:
   gatewayClassName: cilium
   listeners:
     - protocol: HTTP
       port: 80
       name: chat-app-http
-      hostname: "chat-app.nxyt.pl"
       allowedRoutes:
         namespaces:
           from: All
-    - protocol: HTTP
-      port: 80
-      name: stockbuddy-http
-      hostname: "stockbuddy.pl"
-      allowedRoutes:
-        namespaces:
-          from: All
-    - protocol: HTTPS
-      port: 443
-      name: chat-app-https
-      hostname: "chat-app.nxyt.pl"
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        certificateRefs:
-          - name: chatapp-tls
-    - protocol: HTTPS
-      port: 443
-      name: stockbuddy-https
-      hostname: "stockbuddy.pl"
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        certificateRefs:
-          - name: stockbuddy-tls
-
