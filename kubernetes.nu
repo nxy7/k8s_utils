@@ -37,6 +37,7 @@ export def install-gateway-crds [] {
   $manifests | par-each { kubectl apply -f $in } 
 }
 
+# cilium requires some kernel modules to be preloaded
 export def load-kernel-modules [] {
   sudo modprobe ip6table_filter -v
   sudo modprobe iptable_raw -v
@@ -49,7 +50,6 @@ export def load-kernel-modules [] {
   sudo modprobe xt_mark -v
   sudo modprobe xt_set -v
 }
-
 
 export def install-cilium [] {
   cilium install --values ./cilium_values.yaml --version 1.15.0-pre.0 --wait
